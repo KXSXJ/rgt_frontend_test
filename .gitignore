@@ -1,0 +1,14 @@
+/node_modules
+
+/build
+
+.env.local
+.env.development
+.env.production
+.env.*
+
+
+#key pair.
+rgt_app_key.pem
+
+next-env.d.ts

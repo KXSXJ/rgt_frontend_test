@@ -1,32 +1,55 @@
-import { apiUrl } from "@/lib/db";
-import axios from "axios";
 import { GetServerSideProps } from "next";
-import { Book } from "./api/books";
+import Link from "next/link";
+import { QueryClient, dehydrate } from "react-query";
 
-interface HomePageProps {
-    books: Book[];
-  }
+import { getTotalCount } from "@/lib/db";
+import { QUERY_BOOKS_KEY, useFetchBooks } from "@/utils/react-query";
 
-export const getServerSideProps: GetServerSideProps = async () => {
-    try {
-      const books = await axios.get(`${apiUrl}/api/books`).then((res)=>res.data);
-    
-      return {
-        props: { books },
-      };
-    } catch (error) {
-      return {
-        props: { books: [] },
-      };
-    }
+import { getBooks } from "./api/books";
+
+import Pagination from "@/components/pagination";
+import BookList from "@/components/books";
+
+
+
+export const getServerSideProps : GetServerSideProps = async ({query}) => {
+  const queryClient = new QueryClient();
+  const page = query.page || 1;
+  
+  await queryClient.prefetchQuery([QUERY_BOOKS_KEY, page], () => getBooks(Number(page)));
+  const totalCount = await getTotalCount();
+
+  return {
+        props: {
+          dehydratedState: dehydrate(queryClient),
+          page: Number(page),
+          total: totalCount,
+        }
+    };
   };
   
-const HomePage = ({ books }: HomePageProps) => {
-    console.log(books)
-    return(
-            <>
+const HomePage = ({ page, total }) => {
+    const {data} = useFetchBooks(page)
 
-            </>
+    return( 
+          <section>
+            <Link href={'/create'}>
+                <button>추가하기</button>
+            </Link>
+
+            {data &&
+              <div style={{height:'80vh'}}>
+                <BookList books={data}/>
+                <Pagination 
+                  totalItems={total}
+                  itemCountPerPage={10} 
+                  pageCount={5} 
+                  currentPage={1}
+                />
+              </div>
+            }  
+               
+          </section>
     )
 }
 

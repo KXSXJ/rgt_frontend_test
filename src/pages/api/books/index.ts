@@ -1,7 +1,6 @@
-import { apiUrl, selectAllBooks } from "@/lib/db";
+import { apiUrl, selectBooks } from "@/lib/db";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse} from "next";
-import Error from "next/error";
 
 
 
@@ -17,11 +16,20 @@ export interface Book{
     sales_quantity:number,
 }
 
+export interface BookListProps {
+    books: Book[];
+  }
+export interface BookItemProps{
+    book:Book;
+}
+
 
 export default  async function handler (req: NextApiRequest, res: NextApiResponse)  {
     if (req.method === 'GET') {
+    
         try {
-          const books = await selectAllBooks(); 
+          const page = req.query.page|| 1;
+          const books = await selectBooks(Number(page)); 
           res.status(200).json(books);
         } catch (error) {
           console.error('책 목록을 가져오는 데 실패했습니다:', error);
@@ -31,3 +39,14 @@ export default  async function handler (req: NextApiRequest, res: NextApiRespons
         
     }
 }
+
+
+export const getBooks = async(page:number):Promise<Book[]>=>{
+  return axios.get(`${apiUrl}/api/books?page=${page}`)
+  .then(res=>res.data)
+  .catch(err=>{
+    console.error(err);
+    throw new Error('목록을 가져오는데 실패했습니다.');
+  })
+}
+

@@ -38,7 +38,7 @@ const HomePage = ({ page, total }) => {
             </Link>
 
             {data &&
-              <div style={{height:'80vh'}}>
+              <>
                 <BookList books={data}/>
                 <Pagination 
                   totalItems={total}
@@ -46,7 +46,7 @@ const HomePage = ({ page, total }) => {
                   pageCount={5} 
                   currentPage={1}
                 />
-              </div>
+              </>
             }  
                
           </section>

@@ -14,7 +14,7 @@ const Layout = (props: { children: React.ReactElement }) => {
       </>
     );
   };
-
+  
   interface HomePageProps{
     dehydratedState: DehydratedState,
     page: number,

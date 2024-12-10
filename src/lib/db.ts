@@ -24,8 +24,14 @@ export const handleMySql = async (sqlQuery: string) => {
 }
 
 
-export const selectAllBooks = async ():Promise<Book[]>=>{
-    const sqlQuery = 'SELECT * FROM books';
+export const selectBooks = async (page:number):Promise<Book[]>=>{
+    const sqlQuery = `SELECT * FROM books WHERE id > ${(page*10)-10} LIMIT 10`;
     const [rows] = await pool.query(sqlQuery);
     return rows as Book[];
+}
+
+export const getTotalCount = async ()=>{
+    const sqlQuery = `SELECT COUNT(*) as total_count FROM books`;
+    const [rows] = await pool.query(sqlQuery);
+    return rows[0].total_count;
 }

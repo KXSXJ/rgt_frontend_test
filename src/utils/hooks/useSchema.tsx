@@ -24,29 +24,17 @@ export const useSchema = ()=>{
         .max(50, '저자는 50자를 초과할 수 없습니다.'),
 
     image_url: yup
-        .mixed()
-        .test('fileType', '이미지는 PNG 또는 JPEG 형식이어야 합니다.', (value) => {
-            if (value && value instanceof File) {
-                return ['image/png', 'image/jpeg'].includes(value.type);
-            }
-            return true;
-        })
-        .test('fileSize', '파일 크기는 5MB 이하이어야 합니다.', (value) => {
-            if (value && value instanceof File) {
-                return value.size <= 5 * 1024 * 1024; // 5MB 이하
-            }
-            return true; 
-        }),
+        .string()
+        .required('이미지 URL을 입력하세요.')
+        .url('유효한 URL을 입력하세요.'),
     publisher: yup
         .string()
         .required('출판사를 입력하세요.')
         .max(50, '출판사는 50자를 초과할 수 없습니다.'),
 
     published_date: yup
-        .date()
-        .typeError('유효한 날짜를 입력하세요.')
-        .required('출판일을 입력하세요.'),
-
+        .string()
+        .required('출판일은 필수입니다'), 
     sales_quantity: yup
         .number()
         .typeError('판매 수량은 숫자로 입력해야 합니다.')

@@ -1,0 +1,87 @@
+.formWrapper {
+    width: 100%;
+    max-width: 34.2857rem; /* 480px -> 34.2857rem */
+    margin: 0 auto;
+    padding: 1.1429rem; /* 16px -> 1.1429rem */
+    border-radius: 0.5714rem; /* 8px -> 0.5714rem */
+    box-shadow: 0 0.1429rem 0.5714rem rgba(0, 0, 0, 0.1); /* 2px -> 0.1429rem, 8px -> 0.5714rem */
+    background-color: #fff;
+  }
+  
+  .formTitle {
+    font-size: 1.4286rem; /* 20px -> 1.4286rem */
+    font-weight: bold;
+    margin-bottom: 1.1429rem; /* 16px -> 1.1429rem */
+    text-align: center;
+  }
+  
+  .formGroup {
+    margin-bottom: 0.8571rem; /* 12px -> 0.8571rem */
+  }
+  
+  .formGroup label {
+    display: block;
+    font-size: 1rem; /* 14px -> 1rem */
+    font-weight: 500;
+    margin-bottom: 0.4286rem; /* 6px -> 0.4286rem */
+  }
+  
+  .formGroup input {
+    width: 100%;
+    padding: 0.5714rem; /* 8px -> 0.5714rem */
+    border-radius: 0.2857rem; /* 4px -> 0.2857rem */
+    border: 1px solid #ddd;
+    font-size: 1rem; /* 14px -> 1rem */
+    box-sizing: border-box;
+  }
+  
+  .formGroup input[type="file"] {
+    padding: 0.2857rem; /* 4px -> 0.2857rem */
+  }
+  
+  .formError {
+    color: red;
+    font-size: 0.8571rem; /* 12px -> 0.8571rem */
+    margin-top: 0.2857rem; /* 4px -> 0.2857rem */
+  }
+  
+  .formButtons {
+    display: flex;
+    justify-content:right;
+    gap: 0.7143rem; /* 10px -> 0.7143rem */
+  }
+  
+  .formButtons button {
+    padding: 0.5714rem 1.1429rem; /* 8px 16px -> 0.5714rem 1.1429rem */
+    font-size: 1rem; /* 14px -> 1rem */
+    border-radius: 0.2857rem; /* 4px -> 0.2857rem */
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .formButtons .cancelBtn {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .formButtons .cancelBtn:hover {
+    background-color: #e53935;
+  }
+  
+  .formButtons .submitBtn {
+    background-color: #4caf50;
+    color: #fff;
+  }
+  
+  .formButtons .submitBtn:hover {
+    background-color: #45a049;
+  }
+  
+  .previewImage {
+    margin: 1.1429rem 0;
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+  

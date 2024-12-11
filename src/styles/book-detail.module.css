@@ -1,32 +1,102 @@
-.book_container{
+.book_container {
     display: flex;
-    flex-direction: row;
-    margin-top: 3rem;    
-}
-
-.book_container div{
-    display: block;
-}
-
-.left_content{
-    width:auto;
-    display: block;
-    align-content: center; 
-    justify-items: center;
-}
-
-.left_content h4{
-    margin-bottom: 1rem;
-    color:gray;
-}
-.right_content{
-    margin-left: 5rem;
-    margin-top: 5rem;
-}
-
-.right_content span{
+    flex-wrap: wrap;
+    margin: 2rem auto;
+    padding: 2rem;
     width: 100%;
+    max-width: 68.5714rem;
+    background-color: #fff;
+    border-radius: 0.5714rem;
+    box-shadow: 0 0.1429rem 0.5714rem rgba(0, 0, 0, 0.1);
+  }
+  
+  .left_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-right: 2rem;
+  }
+  
+  .left_content h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.8571rem;
+  }
+  
+  .left_content h4 {
+    font-size: 1.1429rem;
+    font-weight: 500;
+    margin-bottom: 1.1429rem;
+  }
+  
+  .left_content img {
+    width: 100%;
+    max-width: 350px;
+    height: auto;
+  }
+  
+  .right_content {
+    flex: 2;
+  }
+  
+  .right_content span {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
-}
+    align-items: center;
+    margin-bottom: 1.1429rem;
+  }
+  
+  .right_content h3 {
+    font-size: 1.4286rem;
+    font-weight: bold;
+  }
+  
+  .right_content div {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .right_content button {
+    background-color: #4caf50;
+    color: #fff;
+    padding: 0.5714rem 1.1429rem;
+    font-size: 1rem;
+    border-radius: 0.2857rem;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .right_content button:hover {
+    background-color: #45a049;
+  }
+  
+  .right_content button.deleteBtn {
+    background-color: #f44336; 
+    color: #fff; 
+    padding: 0.5714rem 1.1429rem; 
+    font-size: 1rem;
+    border-radius: 0.2857rem; 
+    border: none;
+    cursor: pointer; 
+    transition: background-color 0.3s ease; 
+  }
+  
+  .right_content button.deleteBtn:hover {
+    background-color: #e53935; 
+  }
+  .right_content p {
+    font-size: 1rem;
+    margin-bottom: 0.5714rem;
+  }
+  
+  .right_content p span {
+    font-weight: bold;
+  }
+  
+  .right_content p:last-child {
+    margin-bottom: 0;
+  }
+  

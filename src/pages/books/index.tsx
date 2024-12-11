@@ -40,7 +40,7 @@ const BookStore = ({dehydratedState, page, total}:HomePageProps) => {
 
     return (
         <Hydrate state={dehydratedState}>
-            <Link href={'/create'}>
+            <Link href={'/books/create'}>
                 <button>추가하기</button>
             </Link>
 

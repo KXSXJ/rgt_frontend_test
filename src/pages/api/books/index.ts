@@ -1,4 +1,4 @@
-import { apiUrl, selectBooks } from "@/lib/db";
+import { apiUrl, createBook as createBookQuery, selectBooks } from "@/lib/db";
 import axios from "axios";
 import { NextApiRequest, NextApiResponse} from "next";
 
@@ -12,7 +12,7 @@ export interface Book{
     author :string,
     image_url :string,
     publisher : string,
-    published_date:Date,
+    published_date:string,
     sales_quantity:number,
 }
 
@@ -35,8 +35,27 @@ export default  async function handler (req: NextApiRequest, res: NextApiRespons
           console.error('책 목록을 가져오는 데 실패했습니다:', error);
           res.status(500).json({ error: '책 목록을 가져오는 데 실패했습니다.' });
         }
-      }else if(req.method === 'POST'){
-        
+      }else if(req.method === 'POST'){ 
+        //생성
+        try{
+          const {title, sub_title, price, author, image_url, publisher, published_date, sales_quantity} = req.body;
+          const data ={
+            title,
+            sub_title,
+            price,
+            author,
+            image_url,
+            publisher,
+            published_date:published_date,
+            sales_quantity,
+          }
+          console.log(data)
+          createBookQuery(data);
+
+        }catch(error){
+          console.error('책 생성에 실패했습니다:', error);
+          res.status(500).json({ error: '책 생성에 실패했습니다.' });
+        }
     }
 }
 
@@ -50,3 +69,7 @@ export const getBooks = async(page:number):Promise<Book[]>=>{
   })
 }
 
+export const createBook = async(data: Omit<Book, 'id'>) => {
+  return axios.post(`${apiUrl}/api/books`, data).then((res)=>{
+  })
+}

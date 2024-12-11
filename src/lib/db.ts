@@ -1,4 +1,5 @@
 import { Book } from '@/pages/api/books';
+import dayjs from 'dayjs';
 import mysql from 'mysql2/promise';
 
 
@@ -42,3 +43,63 @@ export const selectBookDetail = async (id:number):Promise<Book>=>{
     const [row] = await pool.query(sqlQuery);
     return row[0] as Book;
 }
+
+export const updateBook = async (id:number,book:Omit<Book,'id'>)=> {
+    const sqlQuery = `
+    UPDATE books 
+    SET 
+        title = '${book.title}',
+        sub_title = '${book.sub_title}',
+        price = ${book.price},
+        author = '${book.author}',
+        image_url = '${book.image_url}',
+        publisher = '${book.publisher}',
+        published_date = '${dayjs(book.published_date).format('YYYY-MM-DD')}',
+        sales_quantity = ${book.sales_quantity} 
+    WHERE id = ${id}`;
+
+    await pool.query(sqlQuery);
+}
+
+export const createBook = async (book: Omit<Book, 'id'>) => {
+    const sqlQuery = `
+      INSERT INTO books (title, sub_title, price, author, image_url, publisher, published_date, sales_quantity)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+   
+    const values= [
+      book.title,
+      book.sub_title,
+      book.price,
+      book.author,
+      book.image_url,
+      book.publisher,
+      book.published_date,
+      book.sales_quantity
+    ];
+    
+    try {
+      await pool.query(sqlQuery, values);
+    } catch (error) {
+      console.error('책 생성 오류:', error);
+      throw error;
+    }
+  };
+
+
+
+  export const deleteBook = async (id: number) => {
+    const sqlQuery = `DELETE FROM books WHERE id = ${id}`;
+
+    try {
+      const [result] = await pool.query(sqlQuery);
+      
+      if ((result as any).affectedRows === 0) {
+        throw new Error('책을 찾을 수 없습니다.');
+      }
+    } catch (error) {
+      console.error('책 삭제 오류:', error);
+      throw error;
+    }
+  };
+

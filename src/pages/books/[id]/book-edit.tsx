@@ -56,7 +56,7 @@ export async function getStaticProps(context) {
 }
 
 export default function BookEdit({book,mode}:EditMode) {
-    const [preview, setPreview] = useState<string>(book?.image_url || 'default_image_url');
+    const [preview, setPreview] = useState<string>(book?.image_url || '');
     const router = useRouter();
     
     const schema =useSchema();
@@ -133,7 +133,7 @@ export default function BookEdit({book,mode}:EditMode) {
             </div>
     
             <div className={styles.formGroup}>
-                {preview && (
+                {preview.includes('http') && (
                     <Image src={preview} alt="book_img" width={350} height={400} className={styles.previewImage} />
                 )}
                 <label htmlFor="image_url">이미지 URL 또는 파일 업로드</label>

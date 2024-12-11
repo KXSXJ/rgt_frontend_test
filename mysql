@@ -1,0 +1,44 @@
+MySQL QUERY
+
+
+create database bookstore;
+use bookstore;
+drop database bookstore;
+
+
+show tables;
+CREATE TABLE books (
+    id INT AUTO_INCREMENT PRIMARY KEY,  -- 고유 ID
+    title VARCHAR(255) NOT NULL,        -- 책 제목
+    sub_title VARCHAR(255) NOT NULL,	-- 서브 제목
+    price INT,                          -- 가격
+    author VARCHAR(255),                -- 저자
+    image_url VARCHAR(255),             -- 이미지 URL
+    publisher VARCHAR(255),             -- 출판사
+    published_date DATE,                -- 출판일
+    sales_quantity INT					-- 판매수량
+);
+select * from books;
+INSERT INTO books (title, sub_title, author, price, image_url, publisher, published_date, sales_quantity)
+VALUES
+('프로덕트 개발의 모든 것', '13년차 PO의 성공적인 제품 개발 전략과 노하우 & 마인드셋', '김수재', 16500, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165923082.jpg', '비제이퍼블릭', '2024-12-16', 150),
+('생성형 AI를 활용한 게임 개발', 'ChatGPT, Tensor.Art, Udio', '정금호',27000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791193229309.jpg', '로드북', '2024-12-12', 300),
+('실전! 스프링 부트 3 & 리액트로 시작하는 모던 웹 애플리케이션 개발', '스프링 부트 3와 리액트를 활용한 실습 중심의 풀스택 웹 애플리케이션 개발', '주하 힌쿨라 저자(글)', 30000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158395315.jpg', '위키북스', '2024-12-12', 500),
+('LLM을 활용한 실전 AI 애플리케이션 개발', 'LLM의 기본부터 모델 학습, 임베딩, 벡터 데이터베이스로 만드는 RAG까지', '허정준', 32000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791189909703.jpg', '책만', '2024-07-25', 120),
+('소프트웨어 개발에 ChatGPT 사용하기', '챗GPT를 활용한 프로그래밍부터 리팩터링, 문서 자동화, ChatGPT API, 랭체인까지', '제이펍', 28000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791193926468.jpg', '제이펍', '2024-09-27', 400),
+('코딩 자율학습 HTML + CSS + 자바스크립트', '기초부터 반응형 웹까지 초보자를 위한 웹 개발 입문서', '김기수', 27000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165219468.jpg', '위키북스', '2022-04-25', 700),
+('우아한 타입스크립트 with 리액트', '배달의민족 개발 사례로 살펴보는 우아한형제들의 타입스크립트와 리액트 활용법', '우아한형제들', 32000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169211567.jpg', '한빛미디어', '2023-10-31', 440),
+('따라하며 쉽게 배우는 모던 리액트 완벽 입문', '컴포넌트 기초부터 Next.js를 이용한 앱 개발까지', '아마다 요시히로', 36000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158395308.jpg', '위키북스', '2024-10-15', 200),
+('노코드 풀스택 개발 with 버블', '코딩 없이 실현하는 나만의 아이디어', '이명성',27000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165923051.jpg', '비제이퍼블릭','2024-11-01', 300),
+('랭체인으로 LLM 기반의 AI 서비스 개발하기', '현직 AI Specialist에게 배우는 RAG! 랭체인, 오픈AI API, 스트림릿으로 8가지 서비스 구현까지', '서지영',24000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791140708598.jpg', '길벗', '2024-02-27', 100),
+('Do it! 플러터 앱 개발&출시하기', '1인 개발로 ‘수익화 앱’을 만든다!', '조준수',32000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791163036135.jpg', '이지스퍼블리싱', '2024-06-28', 120),
+('플러터와 Node.js로 시작하는 풀스택 개발', '중고거래 클론 코딩으로 플러터와 Node.js 배우기', '김진형 ',36000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788931477962.jpg', '영진닷컴', '2024-11-13', 40),
+('타입스크립트, 리액트, Next.js로 배우는 실전 웹 애플리케이션 개발', 'TypeScript/React/Next.js로 빠르고 견고한 모던 웹 애플리케이션 만들기', '테지마 타쿠야', 35000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158394332.jpg', '위키북스', '2023-05-30', 120),
+('실전에서 바로 쓰는 Next.js', 'SSR부터 SEO, 배포까지 확장성 높은 풀스택 서비스 구축 가이드', '미셀 리바',26000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169210713.jpg', '한빛미디어', '2023-01-20', 300),
+('클론 코딩으로 시작하는 Next.js', 'Next.js와 타입스크립트로 숙박 공유 플랫폼 만들기', '이창주',26400, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165920371.jpg', '국내도서', '2021-01-29', 30),
+('React 18 디자인 패턴과 베스트 프랙티스 4/e', '보다 나은 사용자 인터페이스 만들기', '카를로스 산타나 롤단', 38000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791161759210.jpg', '에이콘출판', '2024-10-18', 108),
+('생활코딩! React 리액트 프로그래밍', '처음 프로그래밍을 시작하는 입문자의 눈높이에 맞춘', '이고잉', 20000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158394202.jpg', '위키북스', '2023-02-22', 1000),
+('프론트엔드 개발 첫걸음', 'React, Angular, Vue.js, React Native', 'Hara Kazuhiro', 12000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788956747934.jpg', '정보문화사', '2018-11-20', 30),
+('모던 리액트 Deep Dive', '리액트의 핵심 개념과 동작 원리부터 Next.js까지, 리액트의 모든 것', '김용찬', 48000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158394646.jpg', '위키북스', '2024-12-12', 300),
+('비전공자도 배울 수 있는 타입스크립트', '그림과 예제로 배우는 TypeScript 기초 + 리액트', 'HIRO', 32000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169213066.jpg', '한빛미디어', '2024-11-01', 520),
+('소플의 처음 만난 리액트', '리액트 기초와 핵심 개념을 가장 쉽게 알려 주는 입문자 가이드 | 2 판', '이인제', 32000, 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169211697.jpg', '한빛미디어', '2023-11-28', 210);

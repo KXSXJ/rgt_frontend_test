@@ -7,7 +7,7 @@ export default function BookList({books}:BookListProps){
         <section className={styles.books_container}>
             <div className={styles.books_grid}>
                 {books.map((book:Book) => (
-                            <BookItem book={book}/>
+                            <BookItem book={book} key={book.id}/>
                         ))}
             </div>
         </section>

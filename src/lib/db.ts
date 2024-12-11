@@ -30,8 +30,15 @@ export const selectBooks = async (page:number):Promise<Book[]>=>{
     return rows as Book[];
 }
 
+
 export const getTotalCount = async ()=>{
     const sqlQuery = `SELECT COUNT(*) as total_count FROM books`;
     const [rows] = await pool.query(sqlQuery);
     return rows[0].total_count;
+}
+
+export const selectBookDetail = async (id:number):Promise<Book>=>{
+    const sqlQuery =`SELECT * FROM books WHERE id = ${id}`;
+    const [row] = await pool.query(sqlQuery);
+    return row[0] as Book;
 }

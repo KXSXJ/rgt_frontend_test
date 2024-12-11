@@ -1,6 +1,5 @@
 import dayjs from "dayjs"
 
 export const formatDate = (date:Date)=>{
-    return dayjs().format('YYYY년 MM월 DD일');
-
+    return dayjs(date).format('YYYY년 MM월 DD일');
 }

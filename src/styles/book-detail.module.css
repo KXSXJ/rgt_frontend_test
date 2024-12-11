@@ -1,0 +1,32 @@
+.book_container{
+    display: flex;
+    flex-direction: row;
+    margin-top: 3rem;    
+}
+
+.book_container div{
+    display: block;
+}
+
+.left_content{
+    width:auto;
+    display: block;
+    align-content: center; 
+    justify-items: center;
+}
+
+.left_content h4{
+    margin-bottom: 1rem;
+    color:gray;
+}
+.right_content{
+    margin-left: 5rem;
+    margin-top: 5rem;
+}
+
+.right_content span{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+}

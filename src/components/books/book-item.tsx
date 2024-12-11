@@ -8,8 +8,8 @@ import Link from "next/link";
 export default function BookItem({book}:BookItemProps){
     return(
         <Link href={`/books/${book.id}`}>
-            <article key={book.id} className={styles.item_container}>
-                <Image src={`${book.image_url}`} alt='book_img' width={100} height={100}/>
+            <article className={styles.item_container}>
+                <Image src={`${book.image_url}`} alt='book_img' width={100} height={100} loading="lazy"/>
                 <div>
                     <h4>{book.title}</h4>
                     <p>{book.author} &#183; {formatDate(book.published_date)}</p>

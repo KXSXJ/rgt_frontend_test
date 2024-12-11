@@ -51,7 +51,7 @@ const BookStore = ({dehydratedState, page, total}:HomePageProps) => {
                   totalItems={total}
                   itemCountPerPage={10} 
                   pageCount={5} 
-                  currentPage={1}
+                  currentPage={page}
                 />
               </>
             }  

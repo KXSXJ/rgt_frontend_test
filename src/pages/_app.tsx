@@ -1,10 +1,10 @@
 import { MainHeader } from "@/components/main-header"
 import { AppContext, AppInitialProps, AppProps } from "next/app"
 
-import '@/styles/_global.css';
 import { useState } from "react";
-import { DehydratedState, Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { NextComponentType } from "next";
+import '@/styles/_global.css';
 
 const Layout = (props: { children: React.ReactElement }) => {
     return (
@@ -15,25 +15,19 @@ const Layout = (props: { children: React.ReactElement }) => {
     );
   };
   
-  interface HomePageProps{
-    dehydratedState: DehydratedState,
-    page: number,
-  }
 
 
   const MyApp: NextComponentType<AppContext, AppInitialProps, AppProps > = ({
     Component,
     pageProps,
-  }: AppProps<HomePageProps>) => {
+  }: AppProps) => {
     const [queryClient] = useState(() => new QueryClient());
 
     return (
       <QueryClientProvider client={queryClient}>
-        <Hydrate state={pageProps.dehydratedState}>
           <Layout>
             <Component {...pageProps} />
           </Layout>
-        </Hydrate>
       </QueryClientProvider>
     );
   };

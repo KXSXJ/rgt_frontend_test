@@ -49,6 +49,12 @@
     CLOUDINARY_API_KEY=YOUR_CLOUDINARY_API_KEY
     CLOUDINARY_API_SECRET=YOUR_CLOUDINARY_API_SECRET
     ```
+4. mysql파일에 쿼리를 복사하여 workbanch에 붙여넣고 실행한다.
+- create database bookstore;
+- use bookstore;
+- CREATE TABLE books
+- INSERT INTO books
+
 
 ## 기능 구현
 

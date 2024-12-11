@@ -10,7 +10,7 @@ import {  useReducer, useState } from 'react';
 import axios from 'axios';
 import { apiUrl } from '@/lib/db';
 import styles from '@/styles/form.module.css'
-import { updateBookDetail } from '@/pages/api/books/[id]';
+import { getBookDetail, updateBookDetail } from '@/pages/api/books/[id]';
 import { useConfirm } from '@/utils/hooks/useConfrim';
 import { redirect } from 'next/dist/server/api-utils';
 import { useRouter } from 'next/router';
@@ -43,8 +43,20 @@ async function uploadImage(file: File): Promise<string> {
     }
   }
 
+export async function getStaticProps(context) {
+    const { id, mode} = context.params;
+    const book = await getBookDetail(id); // 실제 API 호출로 교체
+
+    return {
+        props: {
+            book: book || {}, 
+            mode: mode, 
+        },
+    };
+}
+
 export default function BookEdit({book,mode}:EditMode) {
-    const [preview, setPreview] = useState<string>(book.image_url);
+    const [preview, setPreview] = useState<string>(book?.image_url || 'default_image_url');
     const router = useRouter();
     
     const schema =useSchema();

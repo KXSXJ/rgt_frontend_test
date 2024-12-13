@@ -1,5 +1,5 @@
 import { Book } from "@/pages/api/books";
-import BookEdit from "../[id]/book-edit";
+import BookEdit from "../../../components/books/book-edit";
 import dayjs from "dayjs";
 
 export default function CreateBook(){

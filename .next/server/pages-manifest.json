@@ -1,11 +1,13 @@
 {
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/_document": "pages/_document.js",
-  "/api/books": "pages/api/books.js",
-  "/api/cloudinary/upload": "pages/api/cloudinary/upload.js",
-  "/books/create": "pages/books/create.js",
   "/api/books/[id]": "pages/api/books/[id].js",
-  "/books/[id]": "pages/books/[id].js",
-  "/books": "pages/books.js"
+  "/api/books": "pages/api/books.js",
+  "/books/[id]": "pages/books/[id].html",
+  "/books/create": "pages/books/create.html",
+  "/": "pages/index.html",
+  "/_document": "pages/_document.js",
+  "/api/cloudinary/upload": "pages/api/cloudinary/upload.js",
+  "/books": "pages/books.js",
+  "/404": "pages/404.html"
 }

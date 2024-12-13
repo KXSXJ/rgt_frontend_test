@@ -5,7 +5,7 @@ import dayjs from "dayjs";
 
 import { formatDate } from "@/utils/dayjs-format";
 import Link from "next/link";
-import BookEdit from "./book-edit";
+import BookEdit from "../../../components/books/book-edit";
 
 import styles from "@/styles/book-detail.module.css";
 import { useConfirm } from "@/utils/hooks/useConfrim";

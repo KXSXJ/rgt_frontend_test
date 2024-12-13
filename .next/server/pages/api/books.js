@@ -1,65 +1,95 @@
 "use strict";
-/*
- * ATTENTION: An "eval-source-map" devtool has been used.
- * This devtool is neither made for production nor for readable output files.
- * It uses "eval()" calls to create a separate source file with attached SourceMaps in the browser devtools.
- * If you are trying to read the output file, select a different devtool (https://webpack.js.org/configuration/devtool/)
- * or disable the default devtool with "devtool: false".
- * If you are looking for production-ready output files, see mode: "production" (https://webpack.js.org/configuration/mode/).
- */
 (() => {
 var exports = {};
-exports.id = "pages/api/books";
-exports.ids = ["pages/api/books"];
+exports.id = 187;
+exports.ids = [187];
 exports.modules = {
 
-/***/ "dayjs":
-/*!************************!*\
-  !*** external "dayjs" ***!
-  \************************/
+/***/ 1635:
 /***/ ((module) => {
 
 module.exports = require("dayjs");
 
 /***/ }),
 
-/***/ "mysql2/promise":
-/*!*********************************!*\
-  !*** external "mysql2/promise" ***!
-  \*********************************/
+/***/ 2418:
 /***/ ((module) => {
 
 module.exports = require("mysql2/promise");
 
 /***/ }),
 
-/***/ "axios":
-/*!************************!*\
-  !*** external "axios" ***!
-  \************************/
+/***/ 9648:
 /***/ ((module) => {
 
 module.exports = import("axios");;
 
 /***/ }),
 
-/***/ "(api)/./src/lib/db.ts":
-/*!***********************!*\
-  !*** ./src/lib/db.ts ***!
-  \***********************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"apiUrl\": () => (/* binding */ apiUrl),\n/* harmony export */   \"createBook\": () => (/* binding */ createBook),\n/* harmony export */   \"deleteBook\": () => (/* binding */ deleteBook),\n/* harmony export */   \"getTotalCount\": () => (/* binding */ getTotalCount),\n/* harmony export */   \"handleMySql\": () => (/* binding */ handleMySql),\n/* harmony export */   \"pool\": () => (/* binding */ pool),\n/* harmony export */   \"selectBookDetail\": () => (/* binding */ selectBookDetail),\n/* harmony export */   \"selectBooks\": () => (/* binding */ selectBooks),\n/* harmony export */   \"updateBook\": () => (/* binding */ updateBook)\n/* harmony export */ });\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! dayjs */ \"dayjs\");\n/* harmony import */ var dayjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(dayjs__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var mysql2_promise__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! mysql2/promise */ \"mysql2/promise\");\n/* harmony import */ var mysql2_promise__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(mysql2_promise__WEBPACK_IMPORTED_MODULE_1__);\n\n\nconst apiUrl = \"http://localhost:3000\";\nconst pool = mysql2_promise__WEBPACK_IMPORTED_MODULE_1___default().createPool({\n    host: process.env.DB_HOST,\n    user: process.env.DB_USER,\n    password: process.env.DB_PASSWORD,\n    database: process.env.DB_NAME,\n    port: 3306\n});\nconst handleMySql = async (sqlQuery)=>{\n    try {\n        const [rows] = await pool.query(sqlQuery);\n        return rows;\n    } catch (err) {\n        console.error(\"MySQL query error: \", err);\n        throw new Error(\"Database query failed\");\n    }\n};\nconst selectBooks = async (page)=>{\n    const sqlQuery = `SELECT * FROM books WHERE id > ${page * 10 - 10} LIMIT 10`;\n    const [rows] = await pool.query(sqlQuery);\n    return rows;\n};\nconst getTotalCount = async ()=>{\n    const sqlQuery = `SELECT COUNT(*) as total_count FROM books`;\n    const [rows] = await pool.query(sqlQuery);\n    return rows[0].total_count;\n};\nconst selectBookDetail = async (id)=>{\n    const sqlQuery = `SELECT * FROM books WHERE id = ${id}`;\n    const [row] = await pool.query(sqlQuery);\n    return row[0];\n};\nconst updateBook = async (id, book)=>{\n    const sqlQuery = `\r\n    UPDATE books \r\n    SET \r\n        title = '${book.title}',\r\n        sub_title = '${book.sub_title}',\r\n        price = ${book.price},\r\n        author = '${book.author}',\r\n        image_url = '${book.image_url}',\r\n        publisher = '${book.publisher}',\r\n        published_date = '${dayjs__WEBPACK_IMPORTED_MODULE_0___default()(book.published_date).format(\"YYYY-MM-DD\")}',\r\n        sales_quantity = ${book.sales_quantity} \r\n    WHERE id = ${id}`;\n    await pool.query(sqlQuery);\n};\nconst createBook = async (book)=>{\n    const sqlQuery = `\r\n      INSERT INTO books (title, sub_title, price, author, image_url, publisher, published_date, sales_quantity)\r\n      VALUES (?, ?, ?, ?, ?, ?, ?, ?)\r\n    `;\n    const values = [\n        book.title,\n        book.sub_title,\n        book.price,\n        book.author,\n        book.image_url,\n        book.publisher,\n        book.published_date,\n        book.sales_quantity\n    ];\n    try {\n        await pool.query(sqlQuery, values);\n    } catch (error) {\n        console.error(\"책 생성 오류:\", error);\n        throw error;\n    }\n};\nconst deleteBook = async (id)=>{\n    const sqlQuery = `DELETE FROM books WHERE id = ${id}`;\n    try {\n        const [result] = await pool.query(sqlQuery);\n        if (result.affectedRows === 0) {\n            throw new Error(\"책을 찾을 수 없습니다.\");\n        }\n    } catch (error) {\n        console.error(\"책 삭제 오류:\", error);\n        throw error;\n    }\n};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwaSkvLi9zcmMvbGliL2RiLnRzLmpzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7QUFDMEI7QUFDUztBQUc1QixNQUFNRSxNQUFNLEdBQUdDLHVCQUErQixDQUFDO0FBRS9DLE1BQU1HLElBQUksR0FBR0wsZ0VBQWdCLENBQUM7SUFDakNPLElBQUksRUFBRUwsT0FBTyxDQUFDQyxHQUFHLENBQUNLLE9BQU87SUFDekJDLElBQUksRUFBRVAsT0FBTyxDQUFDQyxHQUFHLENBQUNPLE9BQU87SUFDekJDLFFBQVEsRUFBRVQsT0FBTyxDQUFDQyxHQUFHLENBQUNTLFdBQVc7SUFDakNDLFFBQVEsRUFBRVgsT0FBTyxDQUFDQyxHQUFHLENBQUNXLE9BQU87SUFDN0JDLElBQUksRUFBRSxJQUFJO0NBQ2IsQ0FBQyxDQUFDO0FBR0ksTUFBTUMsV0FBVyxHQUFHLE9BQU9DLFFBQWdCLEdBQUs7SUFDbkQsSUFBSTtRQUNBLE1BQU0sQ0FBQ0MsSUFBSSxDQUFDLEdBQUcsTUFBTWIsSUFBSSxDQUFDYyxLQUFLLENBQUNGLFFBQVEsQ0FBQztRQUN6QyxPQUFPQyxJQUFJLENBQUM7SUFDaEIsRUFBRSxPQUFPRSxHQUFHLEVBQUU7UUFDVkMsT0FBTyxDQUFDQyxLQUFLLENBQUMscUJBQXFCLEVBQUVGLEdBQUcsQ0FBQyxDQUFDO1FBQzFDLE1BQU0sSUFBSUcsS0FBSyxDQUFDLHVCQUF1QixDQUFDLENBQUM7SUFDN0MsQ0FBQztBQUNMLENBQUM7QUFHTSxNQUFNQyxXQUFXLEdBQUcsT0FBT0MsSUFBVyxHQUFtQjtJQUM1RCxNQUFNUixRQUFRLEdBQUcsQ0FBQywrQkFBK0IsRUFBRSxJQUFLLEdBQUMsRUFBRSxHQUFFLEVBQUUsQ0FBQyxTQUFTLENBQUM7SUFDMUUsTUFBTSxDQUFDQyxJQUFJLENBQUMsR0FBRyxNQUFNYixJQUFJLENBQUNjLEtBQUssQ0FBQ0YsUUFBUSxDQUFDO0lBQ3pDLE9BQU9DLElBQUksQ0FBVztBQUMxQixDQUFDO0FBR00sTUFBTVEsYUFBYSxHQUFHLFVBQVU7SUFDbkMsTUFBTVQsUUFBUSxHQUFHLENBQUMseUNBQXlDLENBQUM7SUFDNUQsTUFBTSxDQUFDQyxJQUFJLENBQUMsR0FBRyxNQUFNYixJQUFJLENBQUNjLEtBQUssQ0FBQ0YsUUFBUSxDQUFDO0lBQ3pDLE9BQU9DLElBQUksQ0FBQyxDQUFDLENBQUMsQ0FBQ1MsV0FBVyxDQUFDO0FBQy9CLENBQUM7QUFFTSxNQUFNQyxnQkFBZ0IsR0FBRyxPQUFPQyxFQUFTLEdBQWlCO0lBQzdELE1BQU1aLFFBQVEsR0FBRSxDQUFDLCtCQUErQixFQUFFWSxFQUFFLENBQUMsQ0FBQztJQUN0RCxNQUFNLENBQUNDLEdBQUcsQ0FBQyxHQUFHLE1BQU16QixJQUFJLENBQUNjLEtBQUssQ0FBQ0YsUUFBUSxDQUFDO0lBQ3hDLE9BQU9hLEdBQUcsQ0FBQyxDQUFDLENBQUMsQ0FBUztBQUMxQixDQUFDO0FBRU0sTUFBTUMsVUFBVSxHQUFHLE9BQU9GLEVBQVMsRUFBQ0csSUFBb0IsR0FBSTtJQUMvRCxNQUFNZixRQUFRLEdBQUcsQ0FBQztJQWFsQixNQUFNWixJQUFJLENBQUNjO0FBQ2YsQ0FBQztBQUVELE9BQU8sTUFBTXVCLFVBQVUsR0FBRyxPQUFPVjtJQUM3QixNQUFNZixRQUFRLEdBQUcsQ0FBQztJQUtsQixNQUFNMEIsTUFBTSxHQUFFO1FBQ1pYLElBQUksQ0FBQ0MsS0FBSztRQUNWRCxJQUFJLENBQUNFLFNBQVM7UUFDZEYsSUFBSSxDQUFDRyxLQUFLO1FBQ1ZILElBQUksQ0FBQ0ksTUFBTTtRQUNYSixJQUFJLENBQUNLLFNBQVM7UUFDZEwsSUFBSSxDQUFDTSxTQUFTO1FBQ2ROLElBQUksQ0FBQ08sY0FBYzs7QUFFcEI7SUFFRCxJQUFJO1FBQ0YsTUFBTWxDLElBQUksQ0FBQ2MsS0FBSyxDQUFDRixRQUFRLEVBQUUwQixNQUFNLENBQUMsQ0FBQztJQUNyQyxFQUFFLE9BQU9yQixLQUFLLEVBQUU7O1FBRWQsTUFBTUEsS0FBSyxDQUFDO0lBQ2QsQ0FBQztBQUNILENBQUMsQ0FBQztBQUlGLE9BQU8sTUFBTXNCO0lBQ1gsTUFBTTNCLFFBQVE7SUFFZCxJQUFJO1FBQ0YsTUFBTSxDQUFDNEIsTUFBTSxDQUFDO1FBRWQsSUFBSSxNQUFPLENBQVNDO1lBQ2xCLE1BQU0sSUFBSXZCLEtBQUs7O0lBRW5CLEVBQUU7UUFDQUYsT0FBTyxDQUFDQyxLQUFLLENBQUMsVUFBVSxFQUFFQSxLQUFLLENBQUMsQ0FBQztRQUNqQyxNQUFNQSxLQUFLLENBQUM7SUFDZCxDQUFDO0FBQ0gsQ0FBQyxDQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vc3JjL2xpYi9kYi50cz85ZTRmIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IEJvb2sgfSBmcm9tICdAL3BhZ2VzL2FwaS9ib29rcyc7XHJcbmltcG9ydCBkYXlqcyBmcm9tICdkYXlqcyc7XHJcbmltcG9ydCBteXNxbCBmcm9tICdteXNxbDIvcHJvbWlzZSc7XHJcblxyXG5cclxuZXhwb3J0IGNvbnN0IGFwaVVybCA9IHByb2Nlc3MuZW52Lk5FWFRfUFVCTElDX0FQSV9VUkw7XHJcblxyXG5leHBvcnQgY29uc3QgcG9vbCA9IG15c3FsLmNyZWF0ZVBvb2woe1xyXG4gICAgaG9zdDogcHJvY2Vzcy5lbnYuREJfSE9TVCxcclxuICAgIHVzZXI6IHByb2Nlc3MuZW52LkRCX1VTRVIsXHJcbiAgICBwYXNzd29yZDogcHJvY2Vzcy5lbnYuREJfUEFTU1dPUkQsXHJcbiAgICBkYXRhYmFzZTogcHJvY2Vzcy5lbnYuREJfTkFNRSxcclxuICAgIHBvcnQgOjMzMDYsXHJcbn0pO1xyXG5cclxuXHJcbmV4cG9ydCBjb25zdCBoYW5kbGVNeVNxbCA9IGFzeW5jIChzcWxRdWVyeTogc3RyaW5nKSA9PiB7XHJcbiAgICB0cnkge1xyXG4gICAgICAgIGNvbnN0IFtyb3dzXSA9IGF3YWl0IHBvb2wucXVlcnkoc3FsUXVlcnkpO1xyXG4gICAgICAgIHJldHVybiByb3dzOyBcclxuICAgIH0gY2F0Y2ggKGVycikge1xyXG4gICAgICAgIGNvbnNvbGUuZXJyb3IoJ015U1FMIHF1ZXJ5IGVycm9yOiAnLCBlcnIpO1xyXG4gICAgICAgIHRocm93IG5ldyBFcnJvcignRGF0YWJhc2UgcXVlcnkgZmFpbGVkJyk7IFxyXG4gICAgfVxyXG59XHJcblxyXG5cclxuZXhwb3J0IGNvbnN0IHNlbGVjdEJvb2tzID0gYXN5bmMgKHBhZ2U6bnVtYmVyKTpQcm9taXNlPEJvb2tbXT49PntcclxuICAgIGNvbnN0IHNxbFF1ZXJ5ID0gYFNFTEVDVCAqIEZST00gYm9va3MgV0hFUkUgaWQgPiAkeyhwYWdlKjEwKS0xMH0gTElNSVQgMTBgO1xyXG4gICAgY29uc3QgW3Jvd3NdID0gYXdhaXQgcG9vbC5xdWVyeShzcWxRdWVyeSk7XHJcbiAgICByZXR1cm4gcm93cyBhcyBCb29rW107XHJcbn1cclxuXHJcblxyXG5leHBvcnQgY29uc3QgZ2V0VG90YWxDb3VudCA9IGFzeW5jICgpPT57XHJcbiAgICBjb25zdCBzcWxRdWVyeSA9IGBTRUxFQ1QgQ09VTlQoKikgYXMgdG90YWxfY291bnQgRlJPTSBib29rc2A7XHJcbiAgICBjb25zdCBbcm93c10gPSBhd2FpdCBwb29sLnF1ZXJ5KHNxbFF1ZXJ5KTtcclxuICAgIHJldHVybiByb3dzWzBdLnRvdGFsX2NvdW50O1xyXG59XHJcblxyXG5leHBvcnQgY29uc3Qgc2VsZWN0Qm9va0RldGFpbCA9IGFzeW5jIChpZDpudW1iZXIpOlByb21pc2U8Qm9vaz49PntcclxuICAgIGNvbnN0IHNxbFF1ZXJ5ID1gU0VMRUNUICogRlJPTSBib29rcyBXSEVSRSBpZCA9ICR7aWR9YDtcclxuICAgIGNvbnN0IFtyb3ddID0gYXdhaXQgcG9vbC5xdWVyeShzcWxRdWVyeSk7XHJcbiAgICByZXR1cm4gcm93WzBdIGFzIEJvb2s7XHJcbn1cclxuXHJcbmV4cG9ydCBjb25zdCB1cGRhdGVCb29rID0gYXN5bmMgKGlkOm51bWJlcixib29rOk9taXQ8Qm9vaywnaWQnPik9PiB7XHJcbiAgICBjb25zdCBzcWxRdWVyeSA9IGBcclxuICAgIFVQREFURSBib29rcyBcclxuICAgIFNFVCBcclxuICAgICAgICB0aXRsZSA9ICcke2Jvb2sudGl0bGV9JyxcclxuICAgICAgICBzdWJfdGl0bGUgPSAnJHtib29rLnN1Yl90aXRsZX0nLFxyXG4gICAgICAgIHByaWNlID0gJHtib29rLnByaWNlfSxcclxuICAgICAgICBhdXRob3IgPSAnJHtib29rLmF1dGhvcn0nLFxyXG4gICAgICAgIGltYWdlX3VybCA9ICcke2Jvb2suaW1hZ2VfdXJsfScsXHJcbiAgICAgICAgcHVibGlzaGVyID0gJyR7Ym9vay5wdWJsaXNoZXJ9JyxcclxuICAgICAgICBwdWJsaXNoZWRfZGF0ZSA9ICcke2RheWpzKGJvb2sucHVibGlzaGVkX2RhdGUpLmZvcm1hdCgnWVlZWS1NTS1ERCcpfScsXHJcbiAgICAgICAgc2FsZXNfcXVhbnRpdHkgPSAke2Jvb2suc2FsZXNfcXVhbnRpdHl9IFxyXG4gICAgV0hFUkUgaWQgPSAke2lkfWA7XHJcblxyXG4gICAgYXdhaXQgcG9vbC5xdWVyeShzcWxRdWVyeSk7XHJcbn1cclxuXHJcbmV4cG9ydCBjb25zdCBjcmVhdGVCb29rID0gYXN5bmMgKGJvb2s6IE9taXQ8Qm9vaywgJ2lkJz4pID0+IHtcclxuICAgIGNvbnN0IHNxbFF1ZXJ5ID0gYFxyXG4gICAgICBJTlNFUlQgSU5UTyBib29rcyAodGl0bGUsIHN1Yl90aXRsZSwgcHJpY2UsIGF1dGhvciwgaW1hZ2VfdXJsLCBwdWJsaXNoZXIsIHB1Ymxpc2hlZF9kYXRlLCBzYWxlc19xdWFudGl0eSlcclxuICAgICAgVkFMVUVTICg/LCA/LCA/LCA/LCA/LCA/LCA/LCA/KVxyXG4gICAgYDtcclxuICAgXHJcbiAgICBjb25zdCB2YWx1ZXM9IFtcclxuICAgICAgYm9vay50aXRsZSxcclxuICAgICAgYm9vay5zdWJfdGl0bGUsXHJcbiAgICAgIGJvb2sucHJpY2UsXHJcbiAgICAgIGJvb2suYXV0aG9yLFxyXG4gICAgICBib29rLmltYWdlX3VybCxcclxuICAgICAgYm9vay5wdWJsaXNoZXIsXHJcbiAgICAgIGJvb2sucHVibGlzaGVkX2RhdGUsXHJcbiAgICAgIGJvb2suc2FsZXNfcXVhbnRpdHlcclxuICAgIF07XHJcbiAgICBcclxuICAgIHRyeSB7XHJcbiAgICAgIGF3YWl0IHBvb2wucXVlcnkoc3FsUXVlcnksIHZhbHVlcyk7XHJcbiAgICB9IGNhdGNoIChlcnJvcikge1xyXG4gICAgICBjb25zb2xlLmVycm9yKCfssYUg7IOd7ISxIOyYpOulmDonLCBlcnJvcik7XHJcbiAgICAgIHRocm93IGVycm9yO1xyXG4gICAgfVxyXG4gIH07XHJcblxyXG5cclxuXHJcbiAgZXhwb3J0IGNvbnN0IGRlbGV0ZUJvb2sgPSBhc3luYyAoaWQ6IG51bWJlcikgPT4ge1xyXG4gICAgY29uc3Qgc3FsUXVlcnkgPSBgREVMRVRFIEZST00gYm9va3MgV0hFUkUgaWQgPSAke2lkfWA7XHJcblxyXG4gICAgdHJ5IHtcclxuICAgICAgY29uc3QgW3Jlc3VsdF0gPSBhd2FpdCBwb29sLnF1ZXJ5KHNxbFF1ZXJ5KTtcclxuICAgICAgXHJcbiAgICAgIGlmICgocmVzdWx0IGFzIGFueSkuYWZmZWN0ZWRSb3dzID09PSAwKSB7XHJcbiAgICAgICAgdGhyb3cgbmV3IEVycm9yKCfssYXsnYQg7LC+7J2EIOyImCDsl4bsirXri4jri6QuJyk7XHJcbiAgICAgIH1cclxuICAgIH0gY2F0Y2ggKGVycm9yKSB7XHJcbiAgICAgIGNvbnNvbGUuZXJyb3IoJ+yxhSDsgq3soJwg7Jik66WYOicsIGVycm9yKTtcclxuICAgICAgdGhyb3cgZXJyb3I7XHJcbiAgICB9XHJcbiAgfTtcclxuXHJcbiJdLCJuYW1lcyI6WyJkYXlqcyIsIm15c3FsIiwiYXBpVXJsIiwicHJvY2VzcyIsImVudiIsIk5FWFRfUFVCTElDX0FQSV9VUkwiLCJwb29sIiwiY3JlYXRlUG9vbCIsImhvc3QiLCJEQl9IT1NUIiwidXNlciIsIkRCX1VTRVIiLCJwYXNzd29yZCIsIkRCX1BBU1NXT1JEIiwiZGF0YWJhc2UiLCJEQl9OQU1FIiwicG9ydCIsImhhbmRsZU15U3FsIiwic3FsUXVlcnkiLCJyb3dzIiwicXVlcnkiLCJlcnIiLCJjb25zb2xlIiwiZXJyb3IiLCJFcnJvciIsInNlbGVjdEJvb2tzIiwicGFnZSIsImdldFRvdGFsQ291bnQiLCJ0b3RhbF9jb3VudCIsInNlbGVjdEJvb2tEZXRhaWwiLCJpZCIsInJvdyIsInVwZGF0ZUJvb2siLCJib29rIiwidGl0bGUiLCJzdWJfdGl0bGUiLCJwcmljZSIsImF1dGhvciIsImltYWdlX3VybCIsInB1Ymxpc2hlciIsInB1Ymxpc2hlZF9kYXRlIiwiZm9ybWF0Iiwic2FsZXNfcXVhbnRpdHkiLCJjcmVhdGVCb29rIiwidmFsdWVzIiwiZGVsZXRlQm9vayIsInJlc3VsdCIsImFmZmVjdGVkUm93cyJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(api)/./src/lib/db.ts\n");
-
-/***/ }),
-
-/***/ "(api)/./src/pages/api/books/index.ts":
-/*!**************************************!*\
-  !*** ./src/pages/api/books/index.ts ***!
-  \**************************************/
+/***/ 9015:
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {\n__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"createBook\": () => (/* binding */ createBook),\n/* harmony export */   \"default\": () => (/* binding */ handler),\n/* harmony export */   \"getBooks\": () => (/* binding */ getBooks)\n/* harmony export */ });\n/* harmony import */ var _lib_db__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/lib/db */ \"(api)/./src/lib/db.ts\");\n/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ \"axios\");\nvar __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([axios__WEBPACK_IMPORTED_MODULE_1__]);\naxios__WEBPACK_IMPORTED_MODULE_1__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];\n\n\nasync function handler(req, res) {\n    if (req.method === \"GET\") {\n        try {\n            const page = req.query.page || 1;\n            const books = await (0,_lib_db__WEBPACK_IMPORTED_MODULE_0__.selectBooks)(Number(page));\n            res.status(200).json(books);\n        } catch (error) {\n            console.error(\"책 목록을 가져오는 데 실패했습니다:\", error);\n            res.status(500).json({\n                error: \"책 목록을 가져오는 데 실패했습니다.\"\n            });\n        }\n    } else if (req.method === \"POST\") {\n        //생성\n        try {\n            const { title , sub_title , price , author , image_url , publisher , published_date , sales_quantity  } = req.body;\n            const data = {\n                title,\n                sub_title,\n                price,\n                author,\n                image_url,\n                publisher,\n                published_date: published_date,\n                sales_quantity\n            };\n            console.log(data);\n            (0,_lib_db__WEBPACK_IMPORTED_MODULE_0__.createBook)(data);\n        } catch (error1) {\n            console.error(\"책 생성에 실패했습니다:\", error1);\n            res.status(500).json({\n                error: \"책 생성에 실패했습니다.\"\n            });\n        }\n    }\n}\nconst getBooks = async (page)=>{\n    return axios__WEBPACK_IMPORTED_MODULE_1__[\"default\"].get(`${_lib_db__WEBPACK_IMPORTED_MODULE_0__.apiUrl}/api/books?page=${page}`).then((res)=>res.data).catch((err)=>{\n        console.error(err);\n        throw new Error(\"목록을 가져오는데 실패했습니다.\");\n    });\n};\nconst createBook = async (data)=>{\n    return axios__WEBPACK_IMPORTED_MODULE_1__[\"default\"].post(`${_lib_db__WEBPACK_IMPORTED_MODULE_0__.apiUrl}/api/books`, data).then((res)=>{});\n};\n\n__webpack_async_result__();\n} catch(e) { __webpack_async_result__(e); } });//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiKGFwaSkvLi9zcmMvcGFnZXMvYXBpL2Jvb2tzL2luZGV4LnRzLmpzIiwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7O0FBQThFO0FBQ3BEO0FBeUJWLGVBQWVLLE9BQU8sQ0FBRUMsR0FBbUIsRUFBRUMsR0FBb0IsRUFBRztJQUNoRixJQUFJRCxHQUFHLENBQUNFLE1BQU0sS0FBSyxLQUFLLEVBQUU7UUFFdEIsSUFBSTtZQUNGLE1BQU1DLElBQUksR0FBR0gsR0FBRyxDQUFDSSxLQUFLLENBQUNELElBQUksSUFBRyxDQUFDO1lBQy9CLE1BQU1FLEtBQUssR0FBRyxNQUFNUixvREFBVyxDQUFDUyxNQUFNLENBQUNILElBQUksQ0FBQyxDQUFDO1lBQzdDRixHQUFHLENBQUNNLE1BQU0sQ0FBQyxHQUFHLENBQUMsQ0FBQ0MsSUFBSSxDQUFDSCxLQUFLLENBQUMsQ0FBQztRQUM5QixFQUFFLE9BQU9JLEtBQUssRUFBRTtZQUNkQyxPQUFPLENBQUNELEtBQUssQ0FBQyxzQkFBc0IsRUFBRUEsS0FBSyxDQUFDLENBQUM7WUFDN0NSLEdBQUcsQ0FBQ00sTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDQyxJQUFJLENBQUM7Z0JBQUVDLEtBQUssRUFBRSxzQkFBc0I7YUFBRSxDQUFDLENBQUM7UUFDMUQsQ0FBQztJQUNILE9BQU0sSUFBR1QsR0FBRyxDQUFDRSxNQUFNLEtBQUssTUFBTSxFQUFDO1FBQzdCLElBQUk7UUFDSixJQUFHO1lBQ0QsTUFBTSxFQUFDUyxLQUFLLEdBQUVDLFNBQVMsR0FBRUMsS0FBSyxHQUFFQyxNQUFNLEdBQUVDLFNBQVMsR0FBRUMsU0FBUyxHQUFFQyxjQUFjLEdBQUVDLGNBQWMsR0FBQyxHQUFHbEIsR0FBRyxDQUFDbUIsSUFBSTtZQUN4RyxNQUFNQyxJQUFJLEdBQUU7Z0JBQ1ZULEtBQUs7Z0JBQ0xDLFNBQVM7Z0JBQ1RDLEtBQUs7Z0JBQ0xDLE1BQU07Z0JBQ05DLFNBQVM7Z0JBQ1RDLFNBQVM7Z0JBQ1RDLGNBQWMsRUFBQ0EsY0FBYztnQkFDN0JDLGNBQWM7YUFDZjtZQUNEUixPQUFPLENBQUNXLEdBQUcsQ0FBQ0QsSUFBSSxDQUFDO1lBQ2pCeEIsbURBQWUsQ0FBQ3dCLElBQUksQ0FBQyxDQUFDO1FBRXhCLEVBQUMsT0FBTVgsTUFBSyxFQUFDO1lBQ1hDLE9BQU8sQ0FBQ0QsS0FBSyxDQUFDLGVBQWUsRUFBRUEsTUFBSyxDQUFDLENBQUM7WUFDdENSLEdBQUcsQ0FBQ00sTUFBTSxDQUFDLEdBQUcsQ0FBQyxDQUFDQyxJQUFJLENBQUM7Z0JBQUVDLEtBQUssRUFBRSxlQUFlO2FBQUUsQ0FBQyxDQUFDO1FBQ25ELENBQUM7SUFDTCxDQUFDO0FBQ0wsQ0FBQztBQUdNLE1BQU1hLFFBQVEsR0FBRyxPQUFNbkIsSUFBVyxHQUFtQjtJQUMxRCxPQUFPTCxpREFBUyxDQUFDLENBQUMsRUFBRUosMkNBQU0sQ0FBQyxnQkFBZ0IsRUFBRVMsSUFBSSxDQUFDLENBQUMsQ0FBQyxDQUNuRHFCLElBQUksQ0FBQ3ZCLENBQUFBLEdBQUcsR0FBRUEsR0FBRyxDQUFDbUIsSUFBSSxDQUFDLENBQ25CSyxLQUFLLENBQUNDLENBQUFBLEdBQUcsR0FBRTtRQUNWaEIsT0FBTyxDQUFDRCxLQUFLLENBQUNpQixHQUFHLENBQUMsQ0FBQztRQUNuQixNQUFNLElBQUlDLEtBQUssQ0FBQyxtQkFBbUIsQ0FBQyxDQUFDO0lBQ3ZDLENBQUMsQ0FBQztBQUNKLENBQUM7QUFFTSxNQUFNaEMsVUFBVSxHQUFHLE9BQU15QixJQUFzQixHQUFLO0lBQ3pELE9BQU90QixrREFBVSxDQUFDLENBQUMsRUFBRUosMkNBQU0sQ0FBQyxVQUFVLENBQUMsRUFBRTBCLElBQUksQ0FBQyxDQUFDSSxJQUFJLENBQUMsQ0FBQ3ZCLEdBQUcsR0FBRyxDQUMzRCxDQUFDLENBQUM7QUFDSixDQUFDIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vLy4vc3JjL3BhZ2VzL2FwaS9ib29rcy9pbmRleC50cz9mNjhhIl0sInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGFwaVVybCwgY3JlYXRlQm9vayBhcyBjcmVhdGVCb29rUXVlcnksIHNlbGVjdEJvb2tzIH0gZnJvbSBcIkAvbGliL2RiXCI7XHJcbmltcG9ydCBheGlvcyBmcm9tIFwiYXhpb3NcIjtcclxuaW1wb3J0IHsgTmV4dEFwaVJlcXVlc3QsIE5leHRBcGlSZXNwb25zZX0gZnJvbSBcIm5leHRcIjtcclxuXHJcblxyXG5cclxuZXhwb3J0IGludGVyZmFjZSBCb29re1xyXG4gICAgaWQgOiBudW1iZXIsXHJcbiAgICB0aXRsZSA6c3RyaW5nLFxyXG4gICAgc3ViX3RpdGxlOnN0cmluZyxcclxuICAgIHByaWNlIDogbnVtYmVyLFxyXG4gICAgYXV0aG9yIDpzdHJpbmcsXHJcbiAgICBpbWFnZV91cmwgOnN0cmluZyxcclxuICAgIHB1Ymxpc2hlciA6IHN0cmluZyxcclxuICAgIHB1Ymxpc2hlZF9kYXRlOnN0cmluZyxcclxuICAgIHNhbGVzX3F1YW50aXR5Om51bWJlcixcclxufVxyXG5cclxuZXhwb3J0IGludGVyZmFjZSBCb29rTGlzdFByb3BzIHtcclxuICAgIGJvb2tzOiBCb29rW107XHJcbiAgfVxyXG5leHBvcnQgaW50ZXJmYWNlIEJvb2tJdGVtUHJvcHN7XHJcbiAgICBib29rOkJvb2s7XHJcbn1cclxuXHJcblxyXG5leHBvcnQgZGVmYXVsdCAgYXN5bmMgZnVuY3Rpb24gaGFuZGxlciAocmVxOiBOZXh0QXBpUmVxdWVzdCwgcmVzOiBOZXh0QXBpUmVzcG9uc2UpICB7XHJcbiAgICBpZiAocmVxLm1ldGhvZCA9PT0gJ0dFVCcpIHtcclxuICAgIFxyXG4gICAgICAgIHRyeSB7XHJcbiAgICAgICAgICBjb25zdCBwYWdlID0gcmVxLnF1ZXJ5LnBhZ2V8fCAxO1xyXG4gICAgICAgICAgY29uc3QgYm9va3MgPSBhd2FpdCBzZWxlY3RCb29rcyhOdW1iZXIocGFnZSkpOyBcclxuICAgICAgICAgIHJlcy5zdGF0dXMoMjAwKS5qc29uKGJvb2tzKTtcclxuICAgICAgICB9IGNhdGNoIChlcnJvcikge1xyXG4gICAgICAgICAgY29uc29sZS5lcnJvcign7LGFIOuqqeuhneydhCDqsIDsoLjsmKTripQg642wIOyLpO2MqO2WiOyKteuLiOuLpDonLCBlcnJvcik7XHJcbiAgICAgICAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IGVycm9yOiAn7LGFIOuqqeuhneydhCDqsIDsoLjsmKTripQg642wIOyLpO2MqO2WiOyKteuLiOuLpC4nIH0pO1xyXG4gICAgICAgIH1cclxuICAgICAgfWVsc2UgaWYocmVxLm1ldGhvZCA9PT0gJ1BPU1QnKXsgXHJcbiAgICAgICAgLy/sg53shLFcclxuICAgICAgICB0cnl7XHJcbiAgICAgICAgICBjb25zdCB7dGl0bGUsIHN1Yl90aXRsZSwgcHJpY2UsIGF1dGhvciwgaW1hZ2VfdXJsLCBwdWJsaXNoZXIsIHB1Ymxpc2hlZF9kYXRlLCBzYWxlc19xdWFudGl0eX0gPSByZXEuYm9keTtcclxuICAgICAgICAgIGNvbnN0IGRhdGEgPXtcclxuICAgICAgICAgICAgdGl0bGUsXHJcbiAgICAgICAgICAgIHN1Yl90aXRsZSxcclxuICAgICAgICAgICAgcHJpY2UsXHJcbiAgICAgICAgICAgIGF1dGhvcixcclxuICAgICAgICAgICAgaW1hZ2VfdXJsLFxyXG4gICAgICAgICAgICBwdWJsaXNoZXIsXHJcbiAgICAgICAgICAgIHB1Ymxpc2hlZF9kYXRlOnB1Ymxpc2hlZF9kYXRlLFxyXG4gICAgICAgICAgICBzYWxlc19xdWFudGl0eSxcclxuICAgICAgICAgIH1cclxuICAgICAgICAgIGNvbnNvbGUubG9nKGRhdGEpXHJcbiAgICAgICAgICBjcmVhdGVCb29rUXVlcnkoZGF0YSk7XHJcblxyXG4gICAgICAgIH1jYXRjaChlcnJvcil7XHJcbiAgICAgICAgICBjb25zb2xlLmVycm9yKCfssYUg7IOd7ISx7JeQIOyLpO2MqO2WiOyKteuLiOuLpDonLCBlcnJvcik7XHJcbiAgICAgICAgICByZXMuc3RhdHVzKDUwMCkuanNvbih7IGVycm9yOiAn7LGFIOyDneyEseyXkCDsi6TtjKjtlojsirXri4jri6QuJyB9KTtcclxuICAgICAgICB9XHJcbiAgICB9XHJcbn1cclxuXHJcblxyXG5leHBvcnQgY29uc3QgZ2V0Qm9va3MgPSBhc3luYyhwYWdlOm51bWJlcik6UHJvbWlzZTxCb29rW10+PT57XHJcbiAgcmV0dXJuIGF4aW9zLmdldChgJHthcGlVcmx9L2FwaS9ib29rcz9wYWdlPSR7cGFnZX1gKVxyXG4gIC50aGVuKHJlcz0+cmVzLmRhdGEpXHJcbiAgLmNhdGNoKGVycj0+e1xyXG4gICAgY29uc29sZS5lcnJvcihlcnIpO1xyXG4gICAgdGhyb3cgbmV3IEVycm9yKCfrqqnroZ3snYQg6rCA7KC47Jik64qU642wIOyLpO2MqO2WiOyKteuLiOuLpC4nKTtcclxuICB9KVxyXG59XHJcblxyXG5leHBvcnQgY29uc3QgY3JlYXRlQm9vayA9IGFzeW5jKGRhdGE6IE9taXQ8Qm9vaywgJ2lkJz4pID0+IHtcclxuICByZXR1cm4gYXhpb3MucG9zdChgJHthcGlVcmx9L2FwaS9ib29rc2AsIGRhdGEpLnRoZW4oKHJlcyk9PntcclxuICB9KVxyXG59Il0sIm5hbWVzIjpbImFwaVVybCIsImNyZWF0ZUJvb2siLCJjcmVhdGVCb29rUXVlcnkiLCJzZWxlY3RCb29rcyIsImF4aW9zIiwiaGFuZGxlciIsInJlcSIsInJlcyIsIm1ldGhvZCIsInBhZ2UiLCJxdWVyeSIsImJvb2tzIiwiTnVtYmVyIiwic3RhdHVzIiwianNvbiIsImVycm9yIiwiY29uc29sZSIsInRpdGxlIiwic3ViX3RpdGxlIiwicHJpY2UiLCJhdXRob3IiLCJpbWFnZV91cmwiLCJwdWJsaXNoZXIiLCJwdWJsaXNoZWRfZGF0ZSIsInNhbGVzX3F1YW50aXR5IiwiYm9keSIsImRhdGEiLCJsb2ciLCJnZXRCb29rcyIsImdldCIsInRoZW4iLCJjYXRjaCIsImVyciIsIkVycm9yIiwicG9zdCJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///(api)/./src/pages/api/books/index.ts\n");
+__webpack_require__.a(module, async (__webpack_handle_async_dependencies__, __webpack_async_result__) => { try {
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "createBook": () => (/* binding */ createBook),
+/* harmony export */   "default": () => (/* binding */ handler),
+/* harmony export */   "getBooks": () => (/* binding */ getBooks)
+/* harmony export */ });
+/* harmony import */ var _lib_db__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(4095);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(9648);
+var __webpack_async_dependencies__ = __webpack_handle_async_dependencies__([axios__WEBPACK_IMPORTED_MODULE_1__]);
+axios__WEBPACK_IMPORTED_MODULE_1__ = (__webpack_async_dependencies__.then ? (await __webpack_async_dependencies__)() : __webpack_async_dependencies__)[0];
+
+
+async function handler(req, res) {
+    if (req.method === "GET") {
+        try {
+            const page = req.query.page || 1;
+            const books = await (0,_lib_db__WEBPACK_IMPORTED_MODULE_0__/* .selectBooks */ .xk)(Number(page));
+            res.status(200).json(books);
+        } catch (error) {
+            console.error("책 목록을 가져오는 데 실패했습니다:", error);
+            res.status(500).json({
+                error: "책 목록을 가져오는 데 실패했습니다."
+            });
+        }
+    } else if (req.method === "POST") {
+        //생성
+        try {
+            const { title , sub_title , price , author , image_url , publisher , published_date , sales_quantity  } = req.body;
+            const data = {
+                title,
+                sub_title,
+                price,
+                author,
+                image_url,
+                publisher,
+                published_date: published_date,
+                sales_quantity
+            };
+            console.log(data);
+            (0,_lib_db__WEBPACK_IMPORTED_MODULE_0__/* .createBook */ .IY)(data);
+        } catch (error1) {
+            console.error("책 생성에 실패했습니다:", error1);
+            res.status(500).json({
+                error: "책 생성에 실패했습니다."
+            });
+        }
+    }
+}
+const getBooks = async (page)=>{
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].get(`${_lib_db__WEBPACK_IMPORTED_MODULE_0__/* .apiUrl */ .JW}/api/books?page=${page}`).then((res)=>res.data).catch((err)=>{
+        console.error(err);
+        throw new Error("목록을 가져오는데 실패했습니다.");
+    });
+};
+const createBook = async (data)=>{
+    return axios__WEBPACK_IMPORTED_MODULE_1__["default"].post(`${_lib_db__WEBPACK_IMPORTED_MODULE_0__/* .apiUrl */ .JW}/api/books`, data).then((res)=>{});
+};
+
+__webpack_async_result__();
+} catch(e) { __webpack_async_result__(e); } });
 
 /***/ })
 
@@ -70,7 +100,7 @@ eval("__webpack_require__.a(module, async (__webpack_handle_async_dependencies__
 var __webpack_require__ = require("../../webpack-api-runtime.js");
 __webpack_require__.C(exports);
 var __webpack_exec__ = (moduleId) => (__webpack_require__(__webpack_require__.s = moduleId))
-var __webpack_exports__ = (__webpack_exec__("(api)/./src/pages/api/books/index.ts"));
+var __webpack_exports__ = __webpack_require__.X(0, [95], () => (__webpack_exec__(9015)));
 module.exports = __webpack_exports__;
 
 })();
